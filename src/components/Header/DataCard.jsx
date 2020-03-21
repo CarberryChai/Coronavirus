@@ -16,17 +16,17 @@ export default function Header({ url }) {
     <div className='site-card-wrapper'>
       <Row gutter={16}>
         <Col span={8}>
-          <Card title='confirmed' bordered={false}>
+          <Card title='Confirmed' bordered={false} style={{ color: '#ffc53d' }}>
             {data.confirmed.value}
           </Card>
         </Col>
         <Col span={8}>
-          <Card title='recovered' bordered={false}>
+          <Card title='Recovered' bordered={false} style={{ color: '#7cb305' }}>
             {data.recovered.value}
           </Card>
         </Col>
         <Col span={8}>
-          <Card title='deaths' bordered={false}>
+          <Card title='Deaths' bordered={false} style={{ color: '#cf1322' }}>
             {data.deaths.value}
           </Card>
         </Col>

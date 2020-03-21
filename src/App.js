@@ -19,33 +19,39 @@ function App() {
   }
   return (
     <div className='App'>
-      <h1>Global Coronavirus disease Data</h1>
+      <h1 style={{ marginBottom: 50 }}>Global Coronavirus disease Data</h1>
       <DataCard url='https://covid19.mathdro.id/api'></DataCard>
       <h2>Single Country Data</h2>
       <Row style={{ paddingBottom: 20 }}>
         <Col span={12}>
           <Select
+            showSearch
             defaultValue={singleCountry}
-            style={{ width: 120 }}
+            style={{ width: 240 }}
             onChange={handleChange}
+            filterOption={(input, opt) =>
+              opt.children.toLowerCase().startsWith(input.toLowerCase())
+            }
           >
             {country &&
-              Object.entries(country.countries).map(([country, code]) => (
-                <Option value={country} key={code}>
-                  {country}
-                </Option>
-              ))}
+              Object.entries(country.countries).map(
+                ([country, code], index) => (
+                  <Option value={country} key={code + index}>
+                    {country}
+                  </Option>
+                )
+              )}
           </Select>
         </Col>
         <Col span={12}>{singleCountry}</Col>
       </Row>
-      <DataCard
-        url={`https://covid19.mathdro.id/api/countries/${
-          singleCountry.split(' ').length > 1
-            ? country.iso3[country.countries[singleCountry]]
-            : singleCountry
-        }`}
-      ></DataCard>
+      {country && (
+        <DataCard
+          url={`https://covid19.mathdro.id/api/countries/${
+            country.iso3[country.countries[singleCountry]]
+          }`}
+        ></DataCard>
+      )}
     </div>
   )
 }
