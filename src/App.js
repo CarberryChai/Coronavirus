@@ -9,17 +9,15 @@ function App() {
   const [singleCountry, setSingleCountry] = useState('China')
   useEffect(() => {
     request('https://covid19.mathdro.id/api/countries').then(res => {
-      console.log(res)
       setCountryList(res)
     })
   }, [])
   const handleChange = value => {
-    console.log(value)
     setSingleCountry(value)
   }
   return (
     <div className='App'>
-      <h1 style={{ marginBottom: 50 }}>Global Coronavirus disease Data</h1>
+      <h1 style={{ marginBottom: 50 }}>Global Coronavirus Disease Data</h1>
       <DataCard url='https://covid19.mathdro.id/api'></DataCard>
       <h2>Single Country Data</h2>
       <Row style={{ paddingBottom: 20 }}>
