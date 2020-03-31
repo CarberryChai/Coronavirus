@@ -13,24 +13,37 @@ export default function Header({ url }) {
     return <Spin></Spin>
   }
   return (
-    <div className='site-card-wrapper'>
-      <Row gutter={16}>
-        <Col span={8}>
-          <Card title='Confirmed' bordered={false} style={{ color: '#ffc53d' }}>
-            {data.confirmed.value}
-          </Card>
-        </Col>
-        <Col span={8}>
-          <Card title='Recovered' bordered={false} style={{ color: '#7cb305' }}>
-            {data.recovered.value}
-          </Card>
-        </Col>
-        <Col span={8}>
-          <Card title='Deaths' bordered={false} style={{ color: '#cf1322' }}>
-            {data.deaths.value}
-          </Card>
-        </Col>
-      </Row>
-    </div>
+    <>
+      <div className='site-card-wrapper'>
+        <Row gutter={16}>
+          <Col span={8}>
+            <Card
+              title='Confirmed'
+              bordered={false}
+              style={{ color: '#ffc53d' }}
+            >
+              {data.confirmed.value}
+            </Card>
+          </Col>
+          <Col span={8}>
+            <Card
+              title='Recovered'
+              bordered={false}
+              style={{ color: '#7cb305' }}
+            >
+              {data.recovered.value}
+            </Card>
+          </Col>
+          <Col span={8}>
+            <Card title='Deaths' bordered={false} style={{ color: '#cf1322' }}>
+              {data.deaths.value}
+            </Card>
+          </Col>
+        </Row>
+      </div>
+      {url.includes('countries') ? (
+        <p>最新更新时间：{new Date(data.lastUpdate).toLocaleString()}</p>
+      ) : null}
+    </>
   )
 }
