@@ -6,17 +6,17 @@ import { Select, Row, Col, Empty } from 'antd'
 const { Option } = Select
 function App() {
   const [countryList, setCountryList] = useState([])
-  const [singleCountry, setSingleCountry] = useState('China')
+  const [singleCountry, setSingleCountry] = useState('US')
   useEffect(() => {
-    request('https://covid19.mathdro.id/api/countries').then(res => {
+    request('https://covid19.mathdro.id/api/countries').then((res) => {
       setCountryList(res.countries)
     })
   }, [])
-  const handleChange = value => {
+  const handleChange = (value) => {
     setSingleCountry(value)
   }
   const short = useMemo(() => {
-    const temp = countryList.find(item => item.name === singleCountry)
+    const temp = countryList.find((item) => item.name === singleCountry)
     return temp && temp.iso3 ? temp.iso3 : ''
   }, [singleCountry, countryList])
   return (
