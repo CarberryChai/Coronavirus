@@ -8,21 +8,21 @@ function App() {
   const [countryList, setCountryList] = useState([])
   const [singleCountry, setSingleCountry] = useState('US')
   useEffect(() => {
-    request('https://covid19.mathdro.id/api/countries').then((res) => {
+    request('https://covid19.mathdro.id/api/countries').then(res => {
       setCountryList(res.countries)
     })
   }, [])
-  const handleChange = (value) => {
+  const handleChange = value => {
     setSingleCountry(value)
   }
   const short = useMemo(() => {
-    const temp = countryList.find((item) => item.name === singleCountry)
+    const temp = countryList.find(item => item.name === singleCountry)
     return temp && temp.iso3 ? temp.iso3 : ''
   }, [singleCountry, countryList])
   return (
-    <div className='App'>
+    <div className="App">
       <h1 style={{ marginBottom: 50 }}>Global Coronavirus Disease Data</h1>
-      <DataCard url='https://covid19.mathdro.id/api'></DataCard>
+      <DataCard url="https://covid19.mathdro.id/api" />
       <h2>Single Country Data</h2>
       <Row style={{ paddingBottom: 20 }}>
         <Col span={12}>
@@ -45,9 +45,7 @@ function App() {
         <Col span={12}>{singleCountry}</Col>
       </Row>
       {short ? (
-        <DataCard
-          url={`https://covid19.mathdro.id/api/countries/${short}`}
-        ></DataCard>
+        <DataCard url={`https://covid19.mathdro.id/api/countries/${short}`} />
       ) : (
         <Empty />
       )}

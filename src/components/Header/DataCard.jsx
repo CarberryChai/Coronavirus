@@ -1,48 +1,58 @@
 import React, { useState, useEffect } from 'react'
 import request from '../../util/request'
-import { Spin, Card, Col, Row } from 'antd'
+import { Card, Col, Row } from 'antd'
 import './card.less'
 export default function Header({ url }) {
   const [data, setData] = useState(null)
+  const [loading, setLoading] = useState(false)
   useEffect(() => {
-    request(url).then(res => {
-      setData(res)
-    })
+    setLoading(true)
+    request(url)
+      .then(res => {
+        setData(res)
+      })
+      .finally(() => {
+        setLoading(false)
+      })
   }, [url])
-  if (!data) {
-    return <Spin></Spin>
-  }
   return (
     <>
-      <div className='site-card-wrapper'>
+      <div className="site-card-wrapper">
         <Row gutter={16}>
           <Col span={8}>
             <Card
-              title='Confirmed'
-              bordered={false}
+              title="Confirmed"
+              bordered
+              loading={loading}
               style={{ color: '#ffc53d' }}
             >
-              {data.confirmed.value}
+              {data?.confirmed?.value}
             </Card>
           </Col>
           <Col span={8}>
             <Card
-              title='Recovered'
-              bordered={false}
+              title="Recovered"
+              bordered
+              loading={loading}
               style={{ color: '#7cb305' }}
             >
-              {data.recovered.value}
+              {data?.recovered?.value}
             </Card>
           </Col>
           <Col span={8}>
-            <Card title='Deaths' bordered={false} style={{ color: '#cf1322' }}>
-              {data.deaths.value}
+            <Card
+              title="Deaths"
+              bordered
+              loading={loading}
+              style={{ color: '#cf1322' }}
+            >
+              {data?.deaths?.value}
             </Card>
           </Col>
         </Row>
       </div>
       {url.includes('countries') ? (
-        <p>最新更新时间：{new Date(data.lastUpdate).toLocaleString()}</p>
+        <p>最新更新时间：{new Date(data?.lastUpdate).toLocaleString()}</p>
       ) : null}
     </>
   )
